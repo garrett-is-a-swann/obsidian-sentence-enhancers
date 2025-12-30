@@ -1,0 +1,11 @@
+{
+  "id": "obsidian-sentence-enhancers",
+  "name": "Obsidian Sentence Enhancers",
+  "version": "handled by scripts/update-versions.sh",
+  "minAppVersion": "0.15.0",
+  "description": "An [Obsidian](https://obsidian.md/) plugin that adds extra data attributes to be used by CSS.",
+  "author": "Garrett Swann",
+  "authorUrl": "https://github.com/garrett-is-a-swann/obsidian-sentence-enhancers",
+  "fundingUrl": "https://ko-fi.com/gswann",
+  "isDesktopOnly": false
+}

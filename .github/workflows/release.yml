@@ -1,0 +1,30 @@
+name: Release Obsidian plugin
+on:
+  push:
+    tags:
+        - "v[0-9]+.[0-9]+.[0-9]+"
+        - "v[0-9]+.[0-9]+.[0-9]+.[0-9]+a"
+        - "v[0-9]+.[0-9]+.[0-9]+.[0-9]+b"
+jobs:
+  build:
+    permissions:
+        contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-name: .nvmrc
+      - name: Build plugin
+        run: |
+          npm install
+          npm run build
+      - name: Scripts Executable
+        run: |
+           find ./scripts/ -type f | xargs -I{} bash -c 'chmod +x {}'
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${GITHUB_REF#refs/tags/}" "./scripts/release.sh"
