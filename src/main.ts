@@ -1,6 +1,14 @@
 import { MarkdownView, Plugin, type TFile } from 'obsidian';
 import { moment } from 'obsidian';
 
+
+type Json = string
+    | number
+    | boolean
+    | null
+    | Json[]
+    | { [key: string]: Json };
+
 export default class SentenceEnhancersPlugin extends Plugin {
     class_prefix = 'ose';
     chrono_classes: {
@@ -10,7 +18,7 @@ export default class SentenceEnhancersPlugin extends Plugin {
         }
     } = {};
 
-    async onload() {
+    onload() {
         this.registerEvent(this.app.workspace.on('file-open', this.handleNextFile));
 
         const view = this.app.workspace.getActiveViewOfType(MarkdownView);
@@ -102,7 +110,7 @@ export default class SentenceEnhancersPlugin extends Plugin {
     }
 
     generateFrontmatterClasses = (file: TFile) => {
-        const frontmatter = this.app.metadataCache.getFileCache(file)?.frontmatter ?? {};
+        const frontmatter: Json = this.app.metadataCache.getFileCache(file)?.frontmatter ?? {};
         const classes: string[] = [];
         for (const key in frontmatter) {
             if (key === 'cssclasses') {
@@ -115,30 +123,26 @@ export default class SentenceEnhancersPlugin extends Plugin {
         return classes;
     }
 
-    handleType = (classes: string[], path: string, value: any): void => {
-        const type = typeof value;
-        switch (type) {
-            case 'object': {
-                if (Array.isArray(value)) {
-                    this.handleArrayFrontmatter(classes, path, value);
-                }
-                else if (value === null) {
-                    classes.push(`${this.class_prefix}--${path}`.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/, '').toLowerCase());
-                }
-                else {
-                    for (const key in value) {
-                        this.handleType(classes, `${path}-${key}`, value[key]);
-                    }
-                }
-                break;
+    handleType = (classes: string[], path: string, value: Json): void => {
+        if (typeof value == 'object') {
+            if (Array.isArray(value)) {
+                this.handleArrayFrontmatter(classes, path, value);
             }
-            default: {
-                classes.push(`${this.class_prefix}--${path}-${value}`.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/, '').toLowerCase());
+            else if (value === null) {
+                classes.push(`${this.class_prefix}--${path}`.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/, '').toLowerCase());
             }
+            else {
+                for (const key in value) {
+                    this.handleType(classes, `${path}-${key}`, value[key]);
+                }
+            }
+        }
+        else {
+            classes.push(`${this.class_prefix}--${path}-${value}`.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/, '').toLowerCase());
         }
     }
 
-    handleArrayFrontmatter = (classes: string[], path: string, arr: any[]): void => {
+    handleArrayFrontmatter = (classes: string[], path: string, arr: Json[]): void => {
         for (const item of arr) {
             this.handleType(classes, path, item);
         }
