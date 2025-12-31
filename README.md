@@ -1,5 +1,7 @@
 # Obsidian Sentence Enhancers 🧽🍍🪼🫧
 
+![sentence-enhancers-spongebob-gif](https://tenor.com/view/sentence-enhancer-sponge-bob-square-pants-dolphin-noises-sailor-gif-21103444)
+
 An [Obsidian](https://obsidian.md/) plugin supplements the markdown editor node's class selectors with contextual information information to enhance customization by css snippets and themes.
 
 # Classes
