@@ -1,6 +1,6 @@
 # Obsidian Sentence Enhancers 🧽🍍🪼🫧
 
-An [Obsidian](https://obsidian.md/) plugin that supplements the workspace/markdown editor node class lists with contextual information information to enhance customization by snippets and themes.
+An [Obsidian](https://obsidian.md/) plugin that supplements the workspace/markdown editor node class lists with contextual information to enhance customization by snippets and themes.
 
 ![sentence-enhancers-spongebob-gif](https://media1.tenor.com/m/vdhw6gbnBlMAAAAd/sentence-enhancer-sponge-bob.gif)
 
