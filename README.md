@@ -1,8 +1,8 @@
 # Obsidian Sentence Enhancers 🧽🍍🪼🫧
 
-![sentence-enhancers-spongebob-gif](https://tenor.com/view/sentence-enhancer-sponge-bob-square-pants-dolphin-noises-sailor-gif-21103444)
+An [Obsidian](https://obsidian.md/) plugin that supplements the workspace/markdown editor node class lists with contextual information information to enhance customization by snippets and themes.
 
-An [Obsidian](https://obsidian.md/) plugin supplements the workspace/markdown editor node's classes with contextual information information to enhance customization by snippets and themes.
+![sentence-enhancers-spongebob-gif](https://media1.tenor.com/m/vdhw6gbnBlMAAAAd/sentence-enhancer-sponge-bob.gif)
 
 # Classes
 
