@@ -2,11 +2,11 @@
 
 ![sentence-enhancers-spongebob-gif](https://tenor.com/view/sentence-enhancer-sponge-bob-square-pants-dolphin-noises-sailor-gif-21103444)
 
-An [Obsidian](https://obsidian.md/) plugin supplements the markdown editor node's class selectors with contextual information information to enhance customization by css snippets and themes.
+An [Obsidian](https://obsidian.md/) plugin supplements the workspace/markdown editor node's classes with contextual information information to enhance customization by snippets and themes.
 
 # Classes
 
-Obsidian Sentence Enhancers will add classes to a file's MarkdownView container element, prefixed with `ose-`. Users and theme-writers can use these classes to personalize the view of the notes.
+Obsidian Sentence Enhancers will add classes to the workspace/a file's MarkdownView container element, prefixed with `ose_`/`ose--`. Users and theme-writers can use these classes to personalize the view of the notes.
 
 Example:
 

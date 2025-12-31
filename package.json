@@ -1,7 +1,7 @@
 {
   "name": "obsidian-sentence-enhancers",
   "version": "handled by scripts/update-versions.sh",
-  "description": "An Obsidian plugin that adds a radial/pie menu for quick actions/action groups for better UX on mobile, and (to a lesser extent) desktop. (https://github.com/garrett-is-a-swann/obsidian-radial/tree/radial-retargeting)",
+  "description": "An Obsidian plugin that enhances customization by adding additional contextual classes for use by plugins and themes.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
