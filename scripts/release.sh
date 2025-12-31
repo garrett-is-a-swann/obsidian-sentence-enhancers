@@ -27,4 +27,7 @@ if [[ "$prever" == *b ]]; then
 fi
 
 gh release create "$tag" --title="$title" --notes="$notes" $flags \
-    main.js manifest.json styles.css versions.json
+    main.js \
+    manifest.json \
+    $(./scripts/maybe-asset.sh styles.css) \
+    versions.json
