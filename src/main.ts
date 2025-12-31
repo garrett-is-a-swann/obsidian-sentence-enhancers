@@ -3,6 +3,12 @@ import { moment } from 'obsidian';
 
 export default class SentenceEnhancersPlugin extends Plugin {
     class_prefix = 'ose';
+    chrono_classes: {
+        [id: string]: {
+            class: string,
+            tid: ReturnType<typeof setTimeout>,
+        }
+    } = {};
 
     async onload() {
         this.registerEvent(this.app.workspace.on('file-open', this.handleNextFile));
@@ -11,18 +17,25 @@ export default class SentenceEnhancersPlugin extends Plugin {
         if (view && view.file) {
             this.handleNextFile(view.file);
         }
+
+        this.generateChronoClasses();
     }
 
     onunload() {
         const view = this.app.workspace.getActiveViewOfType(MarkdownView);
         if (view) {
-            this.removeEnhancerClasses(view);
+            this.removeEnhancerClasses(view.contentEl);
+        }
+
+        this.removeEnhancerClasses(this.app.workspace.containerEl);
+        for (const key in this.chrono_classes) {
+            clearTimeout(this.chrono_classes[key].tid);
         }
     }
 
-    removeEnhancerClasses = (view: MarkdownView) => {
-        view?.contentEl.removeClasses(
-            view?.contentEl.classList.value
+    removeEnhancerClasses = (element: HTMLElement) => {
+        element.removeClasses(
+            element.classList.value
                 .split(" ")
                 .filter(c => c.startsWith(this.class_prefix))
         );
@@ -34,25 +47,58 @@ export default class SentenceEnhancersPlugin extends Plugin {
             console.error("SentenceEnhancers: MarkdownView not available on next file-open event.")
             return;
         }
-        this.removeEnhancerClasses(view);
+
+        this.removeEnhancerClasses(view.contentEl);
 
         const classes = [
             ...this.generateFrontmatterClasses(tfile),
-            ...this.generateChronoClasses(),
         ];
 
         view?.contentEl.addClasses(classes);
     }
 
     generateChronoClasses = () => {
-        const classes: string[] = [
-            moment().format("MMMM"),
-            moment().format("dddd"),
-            `day-${moment().format("DD")}`,
-        ].map(c =>
-            `${this.class_prefix}_${c.toLocaleLowerCase()}`
-        );
-        return classes;
+        const chrono_container = this.app.workspace.containerEl;
+        const chronoTimeout = (key: string, next: (now: Date) => [string, Date]) => {
+            if (this.chrono_classes[key]) {
+                chrono_container.removeClass(this.chrono_classes[key].class);
+            }
+            const now = new Date();
+            const [nextClass, until] = next(now);
+
+            chrono_container.addClass(nextClass);
+
+            const timeUntil = until.getTime() - now.getTime();
+
+            // Set a timeout to run the function when the day changes
+            this.chrono_classes[key] = {
+                class: nextClass,
+                tid: setTimeout(() => {
+                    chronoTimeout(key, next);
+                }, timeUntil)
+            }
+        }
+
+        chronoTimeout('month', (date) => {
+            const currentMoment = moment(date);
+            return [`${this.class_prefix}_${currentMoment.format("MMMM")}`.toLowerCase(), currentMoment.startOf('month').add(1, 'month').toDate()];
+        });
+        chronoTimeout('day-of-week', (now) => {
+            const currentMoment = moment(now);
+            return [`${this.class_prefix}_${currentMoment.format("dddd")}`.toLowerCase(), currentMoment.startOf('day').add(1, 'day').toDate()];
+        });
+        chronoTimeout('day-#', (date) => {
+            const currentMoment = moment(date);
+            return [`${this.class_prefix}_day-${currentMoment.format("DD")}`.toLowerCase(), currentMoment.startOf('day').add(1, 'day').toDate()];
+        });
+        chronoTimeout('hour-#', (date) => {
+            const currentMoment = moment(date);
+            return [`${this.class_prefix}_hour-${currentMoment.format("HH")}`.toLowerCase(), currentMoment.startOf('hour').add(1, 'hour').toDate()];
+        });
+        chronoTimeout('minute-#', (date) => {
+            const currentMoment = moment(date);
+            return [`${this.class_prefix}_minute-${currentMoment.format("mm")}`.toLowerCase(), currentMoment.startOf('minute').add(1, 'minute').toDate()];
+        });
     }
 
     generateFrontmatterClasses = (file: TFile) => {
@@ -60,7 +106,7 @@ export default class SentenceEnhancersPlugin extends Plugin {
         const classes: string[] = [];
         for (const key in frontmatter) {
             if (key === 'cssclasses') {
-                // This is unnecessary enough as it is lmao
+                // This is unnecessary enough as it is.
                 // No need to be redundant
                 continue;
             }

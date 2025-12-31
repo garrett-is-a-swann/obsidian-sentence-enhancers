@@ -8,8 +8,8 @@ Obsidian Sentence Enhancers will add classes to a file's MarkdownView container 
 
 Example:
 
+For a very merry (and blinding) christmas!
 ```css
-// For a very merry (and blinding) christmas!
 .ose_december.ose_day-25 {
     background: red!important;
     *:nth-child(odd) {
@@ -21,21 +21,89 @@ Example:
 }
 ```
 
+Thankful for turkeys aplenty.
+```css
+.ose_november.ose_thursday {
+    &.ose_day-22, &.ose_day-23, &.ose_day-24, &.ose_day-25, &.ose_day-26, &.ose_day-27, &.ose_day-28 {
+        *::after {
+            content: "🦃"
+        }
+    }
+}
+```
+
+Flash the workspace ribbon as a meeting reminder.
+```css
+@keyframes flash {
+    0% {
+        background-color: var(--color-accent);
+    }
+    50% {
+        background-color: color-mix(in srgb, var(--color-accent) 50%, var(--ribbon-background));
+    }
+    100% {
+        background-color: var(--ribon-background);
+    }
+}
+
+.ose_wednesday.ose_hour-12.ose_minute-30 .workspace-ribbon {
+    transition: background-color 0.5s;
+
+    animation-name: flash;
+    animation-duration: 0.5s;
+    animation-iteration-count: 3;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+```
+
+Wednesday-ify your notes, my dudes 🐸
+```css
+.ose_april.ose_day-1.ose_wednesday::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: .15;
+    background: url('https://i.kym-cdn.com/photos/images/original/001/091/264/665.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+```
+
 ## Temporal Information
 
 I add the following css classes for temporal information:
 
 ### Month
----
 Example: ose_january, ose_february, ose_march... etc
 
-### Day of the Week
 ---
+
+### Day of the Week
 Example: ose_monday, ose_tuesday, ose_wednesday... etc
 
-### Day of the Month
 ---
-Example: ose_day-1, ose_day-2, ose_day-3... etc
+
+### Day of the Month
+Example: ose_day-01, ose_day-02, ...ose_day-13... etc
+
+---
+
+### Hour
+Example: ose_hour-01, ose_hour-02, ...ose_hour-13... etc
+
+---
+
+### Minute
+Example: ose_minute-01, ose_minute-02, ...ose_minute-50... etc
+
+---
+
 
 ## Frontmatter Context
 
