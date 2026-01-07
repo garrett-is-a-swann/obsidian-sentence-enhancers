@@ -6,7 +6,7 @@ An [Obsidian](https://obsidian.md/) plugin that supplements the workspace/markdo
 
 # Classes
 
-Obsidian Sentence Enhancers will add classes to the workspace/a file's MarkdownView container element, prefixed with `ose_`/`ose--`. Users and theme-writers can use these classes to personalize the view of the notes.
+Sentence Enhancers will add classes to the workspace/a file's MarkdownView container element, prefixed with `ose_`/`ose--`. Users and theme-writers can use these classes to personalize the view of the notes.
 
 Example:
 

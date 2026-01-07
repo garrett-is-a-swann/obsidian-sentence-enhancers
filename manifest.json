@@ -1,11 +1,11 @@
 {
-  "id": "obsidian-sentence-enhancers",
-  "name": "Obsidian Sentence Enhancers",
+  "id": "sentence-enhancers",
+  "name": "Sentence Enhancers",
   "version": "0.0.1",
   "minAppVersion": "0.15.0",
   "description": "Enhances customization by adding additional contextual classes for use by plugins and themes.",
   "author": "Garrett Swann",
-  "authorUrl": "https://github.com/garrett-is-a-swann/obsidian-sentence-enhancers",
+  "authorUrl": "https://ko-fi.com/gswann",
   "fundingUrl": "https://ko-fi.com/gswann",
   "isDesktopOnly": false
 }
