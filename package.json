@@ -1,6 +1,6 @@
 {
   "name": "obsidian-sentence-enhancers",
-  "version": "handled by scripts/update-versions.sh",
+  "version": "0.0.1",
   "description": "An Obsidian plugin that enhances customization by adding additional contextual classes for use by plugins and themes.",
   "main": "main.js",
   "scripts": {

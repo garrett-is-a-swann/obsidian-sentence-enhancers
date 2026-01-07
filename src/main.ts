@@ -124,12 +124,15 @@ export default class SentenceEnhancersPlugin extends Plugin {
     }
 
     handleType = (classes: string[], path: string, value: Json): void => {
+        function sanitize(raw_class: string) {
+            return raw_class.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/g, '').toLowerCase();
+        }
         if (typeof value == 'object') {
             if (Array.isArray(value)) {
                 this.handleArrayFrontmatter(classes, path, value);
             }
             else if (value === null) {
-                classes.push(`${this.class_prefix}--${path}`.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/, '').toLowerCase());
+                classes.push(sanitize(`${this.class_prefix}--${path}`));
             }
             else {
                 for (const key in value) {
@@ -138,7 +141,7 @@ export default class SentenceEnhancersPlugin extends Plugin {
             }
         }
         else {
-            classes.push(`${this.class_prefix}--${path}-${value}`.replace(/\s+/g, '-').replace(/[^_a-zA-Z0-9-]/, '').toLowerCase());
+            classes.push(sanitize(`${this.class_prefix}--${path}-${value}`));
         }
     }
 

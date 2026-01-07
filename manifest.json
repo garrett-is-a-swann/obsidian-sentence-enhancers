@@ -1,7 +1,7 @@
 {
   "id": "obsidian-sentence-enhancers",
   "name": "Obsidian Sentence Enhancers",
-  "version": "handled by scripts/update-versions.sh",
+  "version": "0.0.1",
   "minAppVersion": "0.15.0",
   "description": "Enhances customization by adding additional contextual classes for use by plugins and themes.",
   "author": "Garrett Swann",
